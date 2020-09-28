@@ -26,7 +26,14 @@ Root
 
 예시) 
 
-<img width="574" alt="스크린샷 2020-09-26 오후 12 42 24" src="https://user-images.githubusercontent.com/50672087/94329419-d0994f00-fff5-11ea-92a5-b65f5dcac63a.png">
+<img width="574" alt="스크린샷 2020-09-26 오후 12 42 24" src="https://user-images.githubusercontent.com/50672087/94329419-d0994f00-fff5-11ea-92a5-b65f5dcac63a.png">
 
 확인은 daily 라벨 선택해서 확인합니다.
 
+## 문제 풀고난 후 PR 예시
+
+- 네이밍 규칙
+- PR은 다음날 머지할 것 (확인하기 어려움)
+<img width="374" alt="스크린샷 2020-09-28 오후 10 07 36" src="https://user-images.githubusercontent.com/50672087/94436247-2d079480-01d7-11eb-9836-aa4bd54023cd.png">
+
+ 
