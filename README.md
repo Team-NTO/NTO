@@ -1,4 +1,4 @@
-# Morgorithm
+# NTO(Not Too Old for Study)
 알고리즘 문제 풀이
 
 예시) 프로젝트 구조  
