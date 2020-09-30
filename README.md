@@ -30,10 +30,11 @@ Root
 
 확인은 daily 라벨 선택해서 확인합니다.
 
-## 문제 풀고난 후 PR 예시
+## ROLE
+- PR은 다음날 정오에 한번에 머지할 것 (확인하기 어려움)
 
-- 네이밍 규칙
-- PR은 다음날 머지할 것 (확인하기 어려움)
+- PR 네이밍 컨벤션
 <img width="374" alt="스크린샷 2020-09-28 오후 10 07 36" src="https://user-images.githubusercontent.com/50672087/94436247-2d079480-01d7-11eb-9836-aa4bd54023cd.png">
 
- 
+- 커밋 컨벤션
+<img width="374" alt="스크린샷 2020-09-28 오후 10 07 36" src="https://user-images.githubusercontent.com/50672087/94436247-2d079480-01d7-11eb-9836-aa4bd54023cd.png">
