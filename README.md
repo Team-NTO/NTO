@@ -31,10 +31,10 @@ Root
 확인은 daily 라벨 선택해서 확인합니다.
 
 ## ROLE
-- PR은 다음날 정오에 한번에 머지할 것 (확인하기 어려움)
+- PR은 **다음날 정오**에 한번에 머지할 것 (확인하기 어려움)
 
 - PR 네이밍 컨벤션
 <img width="374" alt="스크린샷 2020-09-28 오후 10 07 36" src="https://user-images.githubusercontent.com/50672087/94436247-2d079480-01d7-11eb-9836-aa4bd54023cd.png">
 
 - 커밋 컨벤션
-<img width="374" alt="스크린샷 2020-09-28 오후 10 07 36" src="https://user-images.githubusercontent.com/50672087/94436247-2d079480-01d7-11eb-9836-aa4bd54023cd.png">
+<img width="389" alt="스크린샷 2020-09-30 오후 11 58 17" src="https://user-images.githubusercontent.com/50672087/94702638-f0739e80-0378-11eb-8896-b7821916e4f0.png">
