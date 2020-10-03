@@ -1,0 +1,5 @@
+# visual studio code
+.vscode
+
+# etc.
+.DS_Store
