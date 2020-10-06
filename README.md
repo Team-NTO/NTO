@@ -30,11 +30,13 @@ Root
 
 확인은 daily 라벨 선택해서 확인합니다.
 
-## ROLE
-- PR은 **다음날 정오**에 한번에 머지할 것 (확인하기 어려움)
+## PR 컨벤션
+- PR은 **다음날 정오**에 한번에 머지해주세요 (확인하기 어려움)
 
 - PR 네이밍 컨벤션
-<img width="374" alt="스크린샷 2020-09-28 오후 10 07 36" src="https://user-images.githubusercontent.com/50672087/94436247-2d079480-01d7-11eb-9836-aa4bd54023cd.png">
+  - 아래와 같이 PR양식을 지켜주시고, 다 풀었으면 solved, 못풀엇으면 unfinished를 붙여주세요 
+<img width="1279" alt="스크린샷 2020-10-06 오후 7 45 44" src="https://user-images.githubusercontent.com/50672087/95192162-bd179080-080c-11eb-977c-27e9523fac9b.png">
 
 - 커밋 컨벤션
-<img width="389" alt="스크린샷 2020-09-30 오후 11 58 17" src="https://user-images.githubusercontent.com/50672087/94702638-f0739e80-0378-11eb-8896-b7821916e4f0.png">
+  - 아래와 같은 컨벤션으로 커밋해주세요. 잘못 커밋했을 경우 rebase를 통해 커밋을 정리해주세요.
+<img width="410" alt="스크린샷 2020-10-06 오후 7 46 20" src="https://user-images.githubusercontent.com/50672087/95192166-be48bd80-080c-11eb-98f8-22c4e5c85678.png">
