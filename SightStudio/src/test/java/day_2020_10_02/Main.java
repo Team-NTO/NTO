@@ -15,7 +15,6 @@ import java.util.stream.Stream;
 public class Main {
 
     // https://www.acmicpc.net/problem/15961
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Main m = new Main();
@@ -65,7 +64,9 @@ public class Main {
 
         // given
         String firstStr = "8 50 4 7";
-        int[] first     = Arrays.stream(firstStr.split(" ")).mapToInt(Integer::parseInt).toArray();
+        int[] first     = Arrays.stream(firstStr.split(" "))
+                                .mapToInt(Integer::parseInt)
+                                .toArray();
 
         List<Integer> nList = Stream.of("2", "7", "9", "25", "7", "9", "7", "30")
                 .map(Integer::parseInt)

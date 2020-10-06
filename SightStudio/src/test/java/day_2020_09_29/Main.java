@@ -71,7 +71,6 @@ public class Main {
      * 공간의 상태가 주어졌을 때, 아기 상어가 몇 초 동안 엄마 상어에게 도움을 요청하지 않고 물고기를 잡아먹을 수 있는지 구하는 프로그램을 작성
      *
      * 룰
-     *
      * 아기 상어는 자신의 크기보다 작은 물고기만 먹을 수 있다. => 같은 크기 X,
      * 자신의 크기보다 큰 물고기가 있는 칸은 지나갈 수 없다.  => 같은 크기 통과 가능
      *
@@ -84,78 +83,134 @@ public class Main {
      *
      *     거리가 가까운 물고기가 많다면, 가장 위에 있는 물고기, 여러마리라면, 가장 왼쪽에 있는 물고기를 먹는다.
      * 풀이
-     * 1. 상어 -> BFS로 각 물고기들 까지의 최단경로 계산
+     * 1. 상어 -> BFS 로 각 물고기들 까지의 최단경로 계산
      * 2.
      */
+    static int globalTimer = 0;
+    static int remainFish = 0;
     int solution(int N, List<String> list) {
         int[][] map = initMap(list);
-        boolean[][] visited = new boolean[N][N];
+        int[] sharkInit = getStart(map, N);
 
-        int[] babySharkIdx = getBabySharkIdx(map);
+        // init shark start
+        map[sharkInit[0]][sharkInit[1]] = 0;
 
-        int startX = babySharkIdx[0];
-        int startY = babySharkIdx[1];
-        Location start = new Location(startX, startY, map);
+        Shark shark = new Shark(sharkInit, N);
+        int result = bfs(map, shark, N);
 
-        map[startX][startY] = 0;
-
-        bfs(start, map, visited);
-
-        return moveCnt;
+        return result;
     }
 
-    static int moveCnt = 0;
-    private void bfs(Location start, int[][] map, boolean[][] visited) {
+    private int bfs(int[][] map, Shark shark, int N) {
+        Queue<Location> bfsq = new ArrayDeque<>();
 
-        Queue<Location> bfsQ = new ArrayDeque<>();
-        bfsQ.offer(start);
-        Shark shark = new Shark(start.x, start.y, 2);
+        while(true) {
+            bfsq.clear();
+            bfsq.offer(new Location(shark.x, shark.y, 0));
 
-        while(!bfsQ.isEmpty()) {
-            Location now = bfsQ.poll();
+            while (!bfsq.isEmpty()) {
+                Location now = bfsq.poll();
 
-            // 위에 부터 확인
-            if(now.isMobile(map, shark, "UPPER", visited)) {
-                int x = now.x;
-                int y = now.y-1;
+                int nextX = -1;
+                int nextY = -1;
+                int nextSize = -1;
 
-                bfsQ.offer(new Location(x, y, map));
-                shark.eatIfSmall(map);
-                visited[x][y] = true;
-                moveCnt++;
+                // 좌
+                if (now.x - 1 >= 0) {
+                    nextX = now.x - 1;
+                    nextY = now.y;
+                    nextSize = map[nextX][nextY];
+
+                    if (shark.isEatable(nextSize)) {
+                        shark.eat(new Location(nextX, nextY, nextSize));
+                        remainFish--;
+                        globalTimer++;
+                        break;
+                    }
+
+                    if (shark.isPassable(nextSize)) {
+                        bfsq.offer(new Location(nextX, nextY, nextSize));
+                        globalTimer++;
+                    }
+                }
+
+                // 상
+                if (now.y - 1 >= 0) {
+                    nextX = now.x;
+                    nextY = now.y-1;
+                    nextSize = map[nextX][nextY];
+
+                    if (shark.isEatable(nextSize)) {
+                        shark.eat(new Location(nextX, nextY, nextSize));
+                        remainFish--;
+                        globalTimer++;
+                        break;
+                    }
+
+                    if (shark.isPassable(nextSize)) {
+                        bfsq.offer(new Location(nextX, nextY, nextSize));
+                        globalTimer++;
+                    }
+                }
+
+                // 우
+                if (now.x + 1 < N) {
+                    nextX = now.x + 1;
+                    nextY = now.y;
+                    nextSize = map[nextX][nextY];
+
+                    if (shark.isEatable(nextSize)) {
+                        shark.eat(new Location(nextX, nextY, nextSize));
+                        remainFish--;
+                        globalTimer++;
+                        break;
+                    }
+
+                    if (shark.isPassable(nextSize)) {
+                        bfsq.offer(new Location(nextX, nextY, nextSize));
+                        globalTimer++;
+                    }
+                }
+
+                // 하
+                if (now.y + 1 < N) {
+                    nextX = now.x;
+                    nextY = now.y + 1;
+                    nextSize = map[nextX][nextY];
+
+                    if (shark.isEatable(nextSize)) {
+                        shark.eat(new Location(nextX, nextY, nextSize));
+                        remainFish--;
+                        globalTimer++;
+                        break;
+                    }
+
+                    if (shark.isPassable(nextSize)) {
+                        bfsq.offer(new Location(nextX, nextY, nextSize));
+                        globalTimer++;
+                    }
+                }
             }
 
-            if(now.isMobile(map, shark, "LEFT", visited)) {
-                int x = now.x-1;
-                int y = now.y;
+            if(remainFish <= 0) break;
+        }
 
-                bfsQ.offer(new Location(x, y, map));
-                shark.eatIfSmall(map);
-                visited[x][y] = true;
-                moveCnt++;
-            }
+        return globalTimer;
+    }
 
-            if(now.isMobile(map, shark, "LOWER", visited)) {
-                int x = now.x;
-                int y = now.y+1;
-
-                bfsQ.offer(new Location(x, y, map));
-                shark.eatIfSmall(map);
-                visited[x][y] = true;
-                moveCnt++;
-            }
-
-
-            if(now.isMobile(map, shark, "RIGHT", visited)) {
-                int x = now.x+1;
-                int y = now.y;
-
-                bfsQ.offer(new Location(x, y, map));
-                shark.eatIfSmall(map);
-                visited[x][y] = true;
-                moveCnt++;
+    private int[] getStart(int[][] map, int N) {
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < N ; i++) {
+            for (int j = 0; j < N ; j++) {
+                if(map[i][j] == 9) {
+                    x = i;
+                    y = j;
+                    break;
+                }
             }
         }
+        return new int[] { x, y };
     }
 
     /**
@@ -170,25 +225,15 @@ public class Main {
                               .mapToInt(Integer::parseInt)
                               .toArray();
             initMap[i] = row;
-        }
-
-        return initMap;
-    }
-
-    /**
-     * 아기 상어 시작위치 확인
-     */
-    private int[] getBabySharkIdx(int[][] map) {
-        for (int i = 0; i < map.length; i++) {
-            int[] row = map[i];
 
             for (int j = 0; j < row.length ; j++) {
-                if(row[j] == 9) {
-                    return new int[] {j, i};
+                if(row[j] != 0 && row[j] != 9) {
+                    remainFish++;
                 }
             }
         }
-        return new int[] { 0, 0 };
+
+        return initMap;
     }
 }
 
@@ -197,94 +242,38 @@ class Location {
     int y;
     int size;
 
-    public Location(int x, int y, int[][] map) {
+    public Location(int x, int y, int size) {
         this.x = x;
         this.y = y;
-        this.size = map[x][y];
-    }
-
-    /**
-     * 지정한 방향으로 움직일 수 있는지 여부
-     */
-    public boolean isMobile(int[][] map, Shark shark, String direct, boolean[][] visited) {
-        int maxLength = map.length;
-
-        System.out.println(this);
-        if("UPPER".equals(direct) && !visited[x][y]) {
-            int next = y - 1;
-            System.out.println("UPPER");
-            return next >= 0 && shark.isByPassable(x, y, map);
-        }
-
-        if("LEFT".equals(direct) && !visited[x][y]) {
-            int next = x - 1;
-            System.out.println("LEFT");
-            return next >= 0 && shark.isByPassable(x, y, map);
-        }
-
-        if("RIGHT".equals(direct) && !visited[x][y]) {
-            int next = x + 1;
-            System.out.println("RIGHT");
-            return next < maxLength && shark.isByPassable(x, y, map);
-        }
-
-        if("LOWER".equals(direct) && !visited[x][y]) {
-            int next = y + 1;
-            System.out.println("LOWER");
-            return next < maxLength && shark.isByPassable(x, y, map);
-        }
-
-        return false;
-    }
-    @Override
-    public String toString() {
-        return "Location{" +
-                "x=" + x +
-                ", y=" + y +
-                ", size=" + size +
-                '}';
+        this.size = size;
     }
 }
+
 
 class Shark {
     int x;
     int y;
     int size;
 
-    public Shark(int x, int y, int size) {
-        this.x = x;
-        this.y = y;
-        this.size = size;
+    int mapSize;
+    public Shark(int[] code, int N) {
+        this.x = code[0];
+        this.y = code[1];
+        this.size = 2;
+        this.mapSize = N;
     }
 
-    public void eatIfSmall(int[][] map) {
-        int cmpSize =  map[x][y];
-        if(this.size > cmpSize) {
-            this.size += map[x][y];
-            map[x][y] = 0;
-        }
+    public boolean isEatable(int locationSize) {
+        return this.size > locationSize && locationSize != 0;
     }
 
-    public boolean moveIfPossible(int x, int y, int[][] map) {
-        int cmpSize =  map[x][y];
-        if(this.size >= cmpSize || cmpSize == 0) {
-            this.x = x;
-            this.y = y;
-            return true;
-        }
-        return false;
+    public boolean isPassable(int locationSize) {
+        return this.size >= locationSize || locationSize == 0;
     }
 
-    /**
-     * 통과 가능한지만 체크 여부
-     */
-    public boolean isByPassable(int x, int y, int[][] map) {
-        int cmpSize = map[x][y];
-        return cmpSize >= this.size || cmpSize == 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Shark{ x = " + x + ", y = " + y + ", size = " + size + '}';
+    public void eat(Location location) {
+        this.x = location.x;
+        this.y = location.y;
+        this.size += location.size;
     }
 }
