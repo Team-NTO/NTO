@@ -1,3 +1,5 @@
 .idea
 target
 src/main
+
+src/test/java/dummy
