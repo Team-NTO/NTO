@@ -3,3 +3,4 @@ target
 src/main
 
 src/test/java/dummy
+src/test/java/etc
