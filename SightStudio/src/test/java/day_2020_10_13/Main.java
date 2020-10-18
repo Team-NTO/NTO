@@ -34,7 +34,7 @@ public class Main {
      * https://www.acmicpc.net/problem/2660
      *
      * 위상정렬 ?   -> 근데 이거 무방향 그래프임, 시작점 없음 | 불가능
-     * 플로이드 와샬 ->
+     * 플로이드 와샬 -> 모든 정점에서 모든 정점의 경우의 수
      */
     @Test
     void test() {
