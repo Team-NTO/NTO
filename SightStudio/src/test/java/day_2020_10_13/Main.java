@@ -34,7 +34,7 @@ public class Main {
      * https://www.acmicpc.net/problem/2660
      *
      * 위상정렬 ?   -> 근데 이거 무방향 그래프임, 시작점 없음 | 불가능
-     * 플로이드 와샬 ->
+     * 플로이드 와샬 -> 모든 정점에서 모든 정점의 경우의 수
      */
     @Test
     void test() {
@@ -55,9 +55,10 @@ public class Main {
      *  회장의 점수와 회장이 될 수 있는 모든 사람을 찾는 프로그램을 작성
      */
     static final int INFINITE = 10000000;
+    static int  memberCnt = 0;
     private String solution(String memberCntStr, List<String> relList) {
-        final int memberCnt = Integer.parseInt(memberCntStr);
-        final int[][] MATRIX = new int[51][51];
+        memberCnt = Integer.parseInt(memberCntStr);
+        final int[][] MATRIX = new int[memberCnt+1][memberCnt+1];
 
         initMatrix(MATRIX);
         initRel(MATRIX, relList);
@@ -100,8 +101,8 @@ public class Main {
     }
 
     private void initMatrix(int[][] matrix) {
-        for (int i = 1; i <= 50; i++) {
-            for (int j = 1; j <= 50 ; j++) {
+        for (int i = 1; i <= memberCnt; i++) {
+            for (int j = 1; j <= memberCnt ; j++) {
                 if(i == j)
                     matrix[i][j] = 0;
                 else
