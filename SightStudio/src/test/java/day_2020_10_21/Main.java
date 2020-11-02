@@ -58,7 +58,6 @@ public class Main {
                 .sorted((f1, f2) -> f1.start - f2.start)
                 .collect(Collectors.toList());
 
-
         int now = 301;
         int max = 0;
         int cnt = 0;
@@ -100,7 +99,6 @@ public class Main {
         if(now <= 1130) {
             return 0;
         }
-
         return cnt;
     }
 }
