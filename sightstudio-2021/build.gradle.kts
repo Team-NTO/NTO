@@ -21,8 +21,8 @@ dependencies {
 
     testImplementation("io.mockk:mockk:$mockk")
 
-//    testImplementation("org.mockito:mockito-core:$mockito")
-//    testImplementation("org.mockito:mockito-inline:$mockito")
+    testImplementation("org.mockito:mockito-core:$mockito")
+    testImplementation("org.mockito:mockito-inline:$mockito")
 }
 
 tasks {
