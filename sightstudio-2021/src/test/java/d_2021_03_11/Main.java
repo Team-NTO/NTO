@@ -57,7 +57,6 @@ public class Main {
                 .collect(Collectors.toList());
 
         int[] scores = new int[MAX_DAY_CNT];
-
         for (int i = 0; i < N; i++) {
             Homework hw = hwList.get(i);
 
